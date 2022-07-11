@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import Message from "./Message";
 
 const Container = styled.div`
+  display: flex;
+  flex-direction: column;
   position: absolute;
   bottom: 90px;
   right: 10px;
@@ -10,6 +12,7 @@ const Container = styled.div`
   height: 600px;
   box-shadow: 1px 6px 15px -1px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
+  padding-bottom: 10px;
 `;
 
 const Top = styled.div`
@@ -21,11 +24,11 @@ const Top = styled.div`
   border-top-left-radius: 8px;
 `;
 
-const Bottom = styled.div`
+const Body = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  height: 500px;
+  flex-grow: 1;
 `;
 
 const SmallText = styled.p`
@@ -48,16 +51,80 @@ const SubText = styled.p`
 `;
 
 const MessagesContainer = styled.div`
-  flex-grow: 1;
+  height: 420px;
 `;
 
-const TextInput = styled.input``;
+const InputContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  width: 300px;
+  height: 50px;
+  align-items: center;
+`;
 
-const Input = () => {
-  return <TextInput />;
+const TextInput = styled.textarea`
+  display: flex;
+  resize: none;
+  flex-grow: 1;
+  border: none;
+  overflow: auto;
+  outline: none;
+  height: 50px;
+  border-top: 1px solid grey;
+  margin: 0;
+  padding: 0;
+  padding-top: 10px;
+  padding-left: 10px;
+`;
+
+const SubmitButton = styled.div`
+  display: flex;
+  width: 20px;
+  height: 50px;
+  border-top: 1px solid grey;
+  margin: 0;
+  padding: 0;
+  padding-top: 10px;
+  padding-left: 15px;
+  padding-right: 10px;
+`;
+
+const Input = ({ onClick, setResponding, responding }) => {
+  const [text, setText] = useState("");
+
+  const handleClick = () => {
+    onClick(text);
+    setText("");
+    document.getElementById("textarea").value = "";
+    setResponding(true);
+  };
+
+  return (
+    <InputContainer>
+      <TextInput id="textarea" contentEditable={true} onChange={(event) => setText(event.target.value)} />
+      <SubmitButton onClick={handleClick}>
+        {responding ? (
+          <></>
+        ) : (
+          <svg style={{ marginBottom: 10 }} focusable="false" aria-hidden="true" viewBox="0 0 16 16">
+            <path
+              d="M1.388 15.77c-.977.518-1.572.061-1.329-1.019l1.033-4.585c.123-.543.659-1.034 1.216-1.1l6.195-.72c1.648-.19 1.654-.498 0-.687l-6.195-.708c-.55-.063-1.09-.54-1.212-1.085L.056 1.234C-.187.161.408-.289 1.387.231l12.85 6.829c.978.519.98 1.36 0 1.88l-12.85 6.83z"
+              fillRule="evenodd"
+            ></path>
+          </svg>
+        )}
+      </SubmitButton>
+    </InputContainer>
+  );
 };
 
-const OpenView = ({ messages }) => {
+const OpenView = ({ messages, handleAdd }) => {
+  const [responding, setResponding] = useState(false);
+
+  const onInputSubmit = (text) => {
+    handleAdd(text);
+  };
+
   return (
     <Container>
       <Top>
@@ -65,14 +132,14 @@ const OpenView = ({ messages }) => {
         <LargeText>Hi there 👋</LargeText>
         <SubText>Ask us anything, or share your feedback</SubText>
       </Top>
-      <Bottom>
-        <MessagesContainer>
+      <Body>
+        <MessagesContainer style={{ overflowY: "scroll" }}>
           {messages.map((message) => (
             <Message message={message} />
           ))}
         </MessagesContainer>
-        <Input />
-      </Bottom>
+      </Body>
+      <Input onClick={onInputSubmit} responding={responding} setResponding={setResponding} />
     </Container>
   );
 };

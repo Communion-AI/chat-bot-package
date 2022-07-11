@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 const Container = styled.div`
   display: flex;
-  justify-content: ${(props) => (props.isBot ? "flex-end" : "flex-start")};
+  justify-content: ${(props) => (props.isBot ? "flex-start" : "flex-end")};
   padding: 15px;
 `;
 
