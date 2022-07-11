@@ -89,40 +89,33 @@ const SubmitButton = styled.div`
   padding-right: 10px;
 `;
 
-const Input = ({ onClick, setResponding, responding }) => {
+const Input = ({ onClick }) => {
   const [text, setText] = useState("");
 
   const handleClick = () => {
     onClick(text);
     setText("");
     document.getElementById("textarea").value = "";
-    setResponding(true);
   };
 
   return (
     <InputContainer>
       <TextInput id="textarea" contentEditable={true} onChange={(event) => setText(event.target.value)} />
       <SubmitButton onClick={handleClick}>
-        {responding ? (
-          <></>
-        ) : (
-          <svg style={{ marginBottom: 10 }} focusable="false" aria-hidden="true" viewBox="0 0 16 16">
-            <path
-              d="M1.388 15.77c-.977.518-1.572.061-1.329-1.019l1.033-4.585c.123-.543.659-1.034 1.216-1.1l6.195-.72c1.648-.19 1.654-.498 0-.687l-6.195-.708c-.55-.063-1.09-.54-1.212-1.085L.056 1.234C-.187.161.408-.289 1.387.231l12.85 6.829c.978.519.98 1.36 0 1.88l-12.85 6.83z"
-              fillRule="evenodd"
-            ></path>
-          </svg>
-        )}
+        <svg style={{ marginBottom: 10 }} focusable="false" aria-hidden="true" viewBox="0 0 16 16">
+          <path
+            d="M1.388 15.77c-.977.518-1.572.061-1.329-1.019l1.033-4.585c.123-.543.659-1.034 1.216-1.1l6.195-.72c1.648-.19 1.654-.498 0-.687l-6.195-.708c-.55-.063-1.09-.54-1.212-1.085L.056 1.234C-.187.161.408-.289 1.387.231l12.85 6.829c.978.519.98 1.36 0 1.88l-12.85 6.83z"
+            fillRule="evenodd"
+          ></path>
+        </svg>
       </SubmitButton>
     </InputContainer>
   );
 };
 
-const OpenView = ({ messages, handleAdd }) => {
-  const [responding, setResponding] = useState(false);
-
-  const onInputSubmit = (text) => {
-    handleAdd(text);
+const OpenView = ({ messages, handleAdd, addReply }) => {
+  const onInputSubmit = async (text) => {
+    await handleAdd(text);
   };
 
   return (
@@ -139,7 +132,7 @@ const OpenView = ({ messages, handleAdd }) => {
           ))}
         </MessagesContainer>
       </Body>
-      <Input onClick={onInputSubmit} responding={responding} setResponding={setResponding} />
+      <Input onClick={onInputSubmit} />
     </Container>
   );
 };

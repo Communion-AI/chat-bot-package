@@ -3,6 +3,7 @@ import styled from "styled-components";
 import FirstMessage from "../../components/FirstMessage";
 import OpenView from "../../components/OpenView";
 import { verifyToken } from "../../utils";
+import axios from "axios";
 
 const Container = styled.div`
   position: absolute;
@@ -59,8 +60,10 @@ const ChatBox = (props) => {
     },
   ]);
 
-  const handleAddMessage = (text) => {
+  const handleAddMessage = async (text) => {
     setMessages([...messages, { text, isBot: false }]);
+    const resp = await axios.post("http://localhost:8000", { question: text, organisation: "rutter" });
+    setMessages([...messages, { isBot: true, text: resp }]);
     // send message to api, get response then add to message array
   };
 

@@ -15,15 +15,16 @@ const Inner = styled.div`
 `;
 
 const Text = styled.p`
-  font-size: 10px;
+  font-size: 11px;
   white-space: pre-line;
+  color: ${(props) => props.color};
 `;
 
 const Message = ({ message }) => {
   return (
     <Container isBot={message.isBot}>
       <Inner background={message.isBot ? "#e8e8e8" : "#a3acfa"}>
-        <Text>{message.text}</Text>
+        <Text color={message.isBot ? "#000" : "#fff"}>{message.text}</Text>
       </Inner>
     </Container>
   );
