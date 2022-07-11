@@ -1,3 +1,3 @@
-import Button from './components/Button';
+import ChatBox from "./components/ChatBox";
 
-export { Button };
+export { ChatBox };

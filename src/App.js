@@ -1,11 +1,11 @@
-import './App.css';
+import "./App.css";
+import { ChatBox } from "./lib/index";
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-       <p>This is an app</p>
-      </header>
+      <header className="App-header"></header>
+      <ChatBox />
     </div>
   );
 }
