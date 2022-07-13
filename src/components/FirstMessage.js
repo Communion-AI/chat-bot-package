@@ -69,9 +69,9 @@ const CloseText = styled.p`
 const Profile = () => {
   return (
     <ProfileContainer>
-      <Image src={communion} />
+      <Text style={{ fontSize: 30, padding: 0, margin: 0 }}>👋</Text>
       <Text>
-        <Bold>Jeffery</Bold> from Communion
+        <Bold>Jeffery</Bold> from Moksha
       </Text>
     </ProfileContainer>
   );
@@ -108,7 +108,7 @@ const FirstMessage = ({ chatOpen }) => {
           {showClose && <CloseButton onClick={handleClear} />}
         </Top>
         <Bottom>
-          <Text>Hey I'm Jeffery, ask me anything!</Text>
+          <Text>Hey there, take a deep breath and look around. Are you looking for anything specifically?</Text>
         </Bottom>
       </Container>
     );

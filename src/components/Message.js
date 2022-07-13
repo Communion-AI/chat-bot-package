@@ -11,7 +11,7 @@ const Inner = styled.div`
   background-color: ${(props) => props.background};
   padding: 8px;
   border-radius: 8px;
-  width: 80%;
+  max-width: 80%;
 `;
 
 const Text = styled.p`

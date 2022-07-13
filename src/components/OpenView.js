@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import Message from "./Message";
+import { Dots } from "react-activity";
+import "react-activity/dist/library.css";
 
 const Container = styled.div`
   display: flex;
@@ -89,6 +91,19 @@ const SubmitButton = styled.div`
   padding-right: 10px;
 `;
 
+const RespondingContainer = styled.div`
+  display: flex;
+  justify-content: ${(props) => (props.isBot ? "flex-start" : "flex-end")};
+  padding: 15px;
+`;
+
+const RespondingInner = styled.div`
+  background-color: ${(props) => props.background};
+  padding: 8px;
+  border-radius: 8px;
+  max-width: 80%;
+`;
+
 const Input = ({ onClick }) => {
   const [text, setText] = useState("");
 
@@ -113,7 +128,17 @@ const Input = ({ onClick }) => {
   );
 };
 
-const OpenView = ({ messages, handleAdd, addReply }) => {
+const RespondingMessage = () => {
+  return (
+    <RespondingContainer isBot={true}>
+      <RespondingInner background={"#e8e8e8"}>
+        <Dots size={10} speed={0.7} />
+      </RespondingInner>
+    </RespondingContainer>
+  );
+};
+
+const OpenView = ({ messages, handleAdd, responding }) => {
   const onInputSubmit = async (text) => {
     await handleAdd(text);
   };
@@ -123,13 +148,14 @@ const OpenView = ({ messages, handleAdd, addReply }) => {
       <Top>
         <SmallText>Communion</SmallText>
         <LargeText>Hi there 👋</LargeText>
-        <SubText>Ask us anything, or share your feedback</SubText>
+        <SubText>Ask me anything</SubText>
       </Top>
       <Body>
         <MessagesContainer style={{ overflowY: "scroll" }}>
           {messages.map((message) => (
             <Message message={message} />
           ))}
+          {responding && <RespondingMessage />}
         </MessagesContainer>
       </Body>
       <Input onClick={onInputSubmit} />
