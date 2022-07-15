@@ -63,10 +63,20 @@ const ChatBox = (props) => {
   const handleAddMessage = async (text) => {
     setMessages([...messages, { text, isBot: false }]);
     setResponding(true);
+
+    const _messages = messages.map((m) => {
+      if (m.isBot) {
+        return { AI: m.text };
+      } else {
+        return { Human: m.text };
+      }
+    });
+
     const resp = await axios.post(
-      "https://f512-67-254-139-35.ngrok.io/",
+      "https://ce78-67-254-139-35.ngrok.io/",
       {
         question: text,
+        messages: _messages,
         organisation: "moksha",
       },
       { headers: { "Content-Type": "application/json" } },

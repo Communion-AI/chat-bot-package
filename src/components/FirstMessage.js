@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import communion from "../assets/communion.png";
 
 const Container = styled.div`
   position: absolute;
