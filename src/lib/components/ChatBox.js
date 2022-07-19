@@ -73,11 +73,11 @@ const ChatBox = (props) => {
     });
 
     const resp = await axios.post(
-      "https://ce78-67-254-139-35.ngrok.io/",
+      "https://0d6d-74-212-156-35.ngrok.io/",
       {
         question: text,
         messages: _messages,
-        organisation: "moksha",
+        organisation: "haystack",
       },
       { headers: { "Content-Type": "application/json" } },
     );
