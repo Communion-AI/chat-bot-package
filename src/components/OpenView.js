@@ -18,7 +18,7 @@ const Container = styled.div`
 `;
 
 const Top = styled.div`
-  background-color: #a3acfa;
+  background-color: ${(props) => props.color};
   height: 100px;
   padding: 10px;
   padding-left: 20px;
@@ -138,14 +138,14 @@ const RespondingMessage = () => {
   );
 };
 
-const OpenView = ({ messages, handleAdd, responding }) => {
+const OpenView = ({ messages, handleAdd, responding, primaryColor, secondaryColor }) => {
   const onInputSubmit = async (text) => {
     await handleAdd(text);
   };
 
   return (
     <Container>
-      <Top>
+      <Top color={primaryColor}>
         <SmallText>Communion</SmallText>
         <LargeText>Hi there 👋</LargeText>
         <SubText>Ask me anything</SubText>
